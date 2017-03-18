@@ -20,7 +20,8 @@ int main()
 	ans.resize(0);
 	temp.resize(0);
 	cin >> s1;
-	if(cin >> s2 == EOF) return 0;
+	cin >> s2;
+	if(s1 == "0") return 0;
 	s1.length() > s2.length() ? len = s1.length() : len = s2.length();
 	int rlen;
 	unsigned long long int result=stoll(s1)*stoll(s2);
@@ -45,7 +46,7 @@ int main()
 		a2.push_back(s2[s2.length()-1-i]-'0');
 	}
 	int cnt=0;
-	if(stoll(s1) && stoll(s2) > 0){
+	if(stoll(s1) > 0 && stoll(s2) > 0){
 
 	for(int j=0;j<a2.size();j++)
 	{

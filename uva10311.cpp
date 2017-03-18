@@ -2,28 +2,31 @@
 #include <cstdio>
 #include <vector>
 using namespace std;
-int seek2num(int a,vector<int> &prime);
 int main()
 {
-	bool prime[100000001]={true};
-	int cnt;
-	int a;
+	vector<bool> prime;
+	prime.resize(100000001,true);
 	for(int i=2;i<10001;i++){
-		if(prime[i]==true){
+		if(prime.at(i)==true){
 			for(int j=2;i*j<100000001;j++){
-				prime[i*j]=false;
+				prime.at(i*j)=false;
 			}
 		}
-		
 	}
+#ifdef DEBUG
+	for (int i = 0; i < prime.size(); ++i)
+	{
+		if(prime.at(i)==true) printf("%d\n", i);
+	}
+#endif
 	for(int i=0;i<100000;i++)
 	{
 		int num,a=1;
 		scanf("%d",&num);
-		for (int j = seek2num(num/2,prime); j >= 0; --j)
+		for (int j = num/2; j >= 0; --j)
 		{
-			if (prime.at(seek2num(num - prime.at(j),prime)) == num - prime[j])) {
-				printf("%d is the sum of %d and %d.\n", num,num - prime.at(j),prime.at(j));
+			if (prime.at(j)==true && prime.at(num-j)==true) {
+				printf("%d is the sum of %d and %d.\n", num,j,num-j);
 				a--;
 				break;
 			}
