@@ -10,9 +10,8 @@ int main(int argc, char const *argv[])
 	vector<int> res;
 	string s1;
 	string s2;
-	while(1)
+	while(cin >> s1)
 	{
-	cin >> s1;
 	cin >> s2;
 	v1.resize(0);
 	v2.resize(0);
@@ -34,18 +33,30 @@ int main(int argc, char const *argv[])
 		}
 	}
 	int carry=0;
+#ifdef DEBUG
+	for(int i=0;i<res.size();i++) cout << res.at(i) << endl;
+#endif
 	for (int i = 0; i < res.size(); ++i)
 	{
 		res.at(i)+=carry;
 		carry = res.at(i)/10;
-		if(carry) res.at(i) -= carry;// why can't I use -=?
+		res.at(i) %= 10;
 		if (carry && i == res.size()-1) res.push_back(0);
 	}
-	for(int i=res.size()-1;i>=0;i--)
+#ifndef DEBUG 
+	if (res.at(res.size()-1)==0)
 	{
-		printf("%d ", res.at(i));   
-	}                               
-	printf("\n");                    
+		printf("0");
 	}
+	else
+	{
+		for(int i=res.size()-1;i>=0;i--)
+		{
+			printf("%d", res.at(i));   
+		}
+	}
+	printf("\n");  
+#endif  
+	}                
 	return 0;
 }
