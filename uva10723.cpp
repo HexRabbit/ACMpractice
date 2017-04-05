@@ -71,7 +71,7 @@ void solve(int i,int j,int cnt)
 	else if(j==v2.size()-1) return solve(i+1,j,cnt+1);
 	else
 	{
-		if(cmap[i][j]==1) return solve(i+1,j+1,cnt+1);
+		if(cmap[i+1][j+1]==1) return solve(i+1,j+1,cnt+1);
 		else
 		{
 			solve(i+1,j,cnt+1);
