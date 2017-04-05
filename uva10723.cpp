@@ -13,7 +13,7 @@ map<int,int> lcnt;
 void solve(int,int,int);
 int main()
 {
-	int cnt,a=0;
+	int cnt,a=1;
 	string temp;
 	cin >> cnt;
 	while(cnt--)
@@ -46,11 +46,11 @@ int main()
 		}
 		lcnt.clear();
 		solve(0,0,1);
-		int mx=0xFFFFFFFF;
+		int mx=0x7FFFFFFF;
 		int cmx=0;
 		for(map<int,int>::iterator it=lcnt.begin(); it!=lcnt.end(); ++it)
 		{
-			if(mx > it->first && it->first > 0)
+			if(mx > it->first)
 			{
 				mx=it->first;
 				cmx=it->second;
