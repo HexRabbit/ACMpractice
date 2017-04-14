@@ -21,5 +21,6 @@ int main()
 		}
 		cout << total[max] << endl;
 	}
+
 	return 0;
 }
