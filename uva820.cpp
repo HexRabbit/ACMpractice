@@ -1,15 +1,16 @@
 #include <cstdio>
 #include <cstring>
 #include <iostream>
+#include <queue>
 #include <stack>
 #include <algorithm>
 using namespace std;
 int C[105][105],R[105][105];
-int dfn[105];
+int bfn[105];
 bool check[105];
 int flow[105];
 int num;
-int DFS(int,int);
+int BFS(int,int);
 int main()
 {
 	int aa=1;
@@ -27,40 +28,39 @@ int main()
 			R[b][a] += c;
 			R[a][b] += c;
 		}
-		dfn[s]=-1;
+		bfn[s]=-1;
 		int f,df;
-		for(f=0; (df = DFS(s,t)); f+=df) {
-			for(int i=t;~dfn[i];i=dfn[i]) {
-				int j=dfn[i];
+		for(f=0; (df = BFS(s,t)); f+=df) {
+			for(int i=t;~bfn[i];i=bfn[i]) {
+				int j=bfn[i];
 				R[j][i] -= df;
 				R[i][j] = C[i][j] - R[j][i];
 			}
 		}
-		if(aa>1) printf("\n");
-		printf("Network %d\nThe bandwidth is %d.\n",aa,f);
+		printf("Network %d\nThe bandwidth is %d.\n\n",aa,f);
 		aa++;
 	}
 	return 0;
 }
 
 
-int DFS(int s,int t)
+int BFS(int s,int t)
 {
-	stack<int> st;
+	queue<int> qu;
 	memset(check,false,sizeof(check));
 	memset(flow,7,sizeof(flow));
-	st.push(s);
+	qu.push(s);
 	check[s]=true;
-	while(!st.empty())
+	while(!qu.empty())
 	{
-		int i=st.top();st.pop();
+		int i=qu.front();qu.pop();
 		for(int j=1; j<=num; ++j)
 		{
-			if(!check[j] && R[i][j] > 0)
+			if(!check[j] && R[i][j] > 0 && i!=j)
 			{
-				st.push(j);
+				qu.push(j);
 				check[j] = true;
-				dfn[j] = i;
+				bfn[j] = i;
 				flow[j] = min(flow[i],R[i][j]);
 				if(j == t) return flow[t];
 			}
